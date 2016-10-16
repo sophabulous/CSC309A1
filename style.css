@@ -1,0 +1,85 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	padding-left: 20%;
+	padding-right: 20%;
+	padding-top: 5%;
+	padding-bottom: 20%;
+}
+
+p{
+	line-height: 200%;
+}
+
+input{
+	margin-bottom: 2%;
+}
+
+#title{
+	font-family: 'Open Sans', sans-serif;
+	/*font-size: 3em;*/
+}
+
+div::after {
+        clear: both;
+        content: '';
+        display: table;
+        height: 0;
+        visibility: hidden;
+}
+
+h2{
+	font-family: 'Lora', serif;
+	/*font-family: 'Open Sans', sans-serif;*/
+	padding-bottom: 2%;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+h4{
+	font-weight: 100;
+}
+
+.questionblock{
+	padding-top: 5%;
+}
+
+#score{
+	font-family: 'Cormorant Garamond', serif;
+	text-align: right;
+	right: 10%;
+	top: 10%;
+	position: fixed;
+}
+
+.professors{
+	width: 30%;
+	float: left;
+}
+
+.professors p:hover{
+	cursor: pointer;
+}
+
+.fame{
+	width: 70%;
+	float: right;
+}
+
+.placeholder{
+    border-style: solid;
+    border-bottom: solid #000000;
+    padding-right: 5%;
+    margin-right: 2%;
+}
+
+#selections{
+	padding-top: 2%;
+}
+
+.selection{
+	padding-top: 2%;
+}
