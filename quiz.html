@@ -9,15 +9,20 @@
     </head>
     <body>
         <h1 id="title">Let's Get Quizzical!</h1>
-        <h1 id="score">Score:</h1>
-        <div class="questionblock" id="q1">
+        <h1 id="score"></h1>
+        <div class="questionblock" id="q1"> 
+            <!-- onclick="quiz.checkAnswerForQ1(this)" -->
             <h2>Question 1: The first electronic computer in Canada was housed in the Computer Science Department at the U of T.  What was its name?</h2>
             <form id="q1form" action="">
-                <input type="radio" name="gender" value="male" onclick="checkAnswerForQ1()">a) HAL 9000<br>
-                <input type="radio" name="gender" value="female" onclick="checkAnswerForQ1()">b) FERUT<br>
-                <input type="radio" name="gender" value="female" onclick="checkAnswerForQ1()">c) ILLIAC<br>
-                <input type="radio" name="gender" value="other" onclick="checkAnswerForQ1()">d) UNIVAC<br>
-                <input type="submit" value="Display All Explanations">
+<!--                 <input type="radio" name="option" value="HAL 9000">a) HAL 9000<br>
+                <p id="HAL 9000"></p>
+                <input type="radio" name="option" value="FERUT">b) FERUT<br>
+                <p id="FERUT"></p>
+                <input type="radio" name="option" value="ILLIAC">c) ILLIAC<br>
+                <p id="ILLIAC"></p>
+                <input type="radio" name="option" value="UNIVAC">d) UNIVAC<br>
+                <p id="UNIVAC"></p> -->
+<!--                 <input type="button" onclick="quiz.displayAllForQ1()"value="Display All Explanations"> -->
             </form>
         </div>
 
@@ -32,7 +37,7 @@
                 <input type="checkbox" name="vehicle" value="Car">block<br>
                 <input type="checkbox" name="vehicle" value="Bike">character<br>
                 <input type="checkbox" name="vehicle" value="Car">variable<br>
-                <input type="submit" value="Submit">
+                <input type="button" value="Submit" onclick="displayAnswer()">
             </form>
         </div>
         <div class="questionblock" id="q3">
@@ -160,9 +165,9 @@
                     <span>The First Computer Network</span>
                 </div>
                 <br><br>
-                <input type="submit" value="Submit">
+                <input type="button" value="Submit">
             </div>
         </div>
-        <!-- <script src="quiz.js"></script> -->
+        <script src="quiz.js"></script>
     </body>
 </html>

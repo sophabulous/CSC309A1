@@ -11,10 +11,11 @@ body{
 }
 
 p{
-	line-height: 200%;
+	/*line-height: 200%;*/
 }
 
 input{
+	margin-top: 2%;
 	margin-bottom: 2%;
 }
 
@@ -55,6 +56,9 @@ h4{
 	position: fixed;
 }
 
+#q3 p{
+	line-height: 200%;
+}
 .professors{
 	width: 30%;
 	float: left;

@@ -15,11 +15,12 @@
  quiz
  */
 var quiz = quiz || {};
-var q1 = document.getElementById('q1');
-var q2 = document.getElementById('q2');
-var q3 = document.getElementById('q3');
-var q4 = document.getElementById('q4');
+var q1 = document.getElementById("q1");
+var q2 = document.getElementById("q2");
+var q3 = document.getElementById("q3");
+var q4 = document.getElementById("q4");
 var score = 0;
+var q1Answered = false;
 /**
  * Indicates which cities have a direct flight between them.
  * A key has a direct flight to each of the cities in the array
@@ -30,63 +31,85 @@ var score = 0;
  */
 
 
- quiz.Q1 = {
+quiz.Q1 = {
   "HAL 9000": "Incorrect: The HAL 9000 is a fictional computer from Arthur C. Clarke's 2001: A Space Odyssey.",
   "FERUT": "Correct: The machine arrived in Canada on April 30, 1952.  Named FERUT (FERranti U of T), it was used to compute changes in water levels due to the opening of the St. Lawrence Seaway.",
   "ILLIAC": "Incorrect: The ILLIAC was built at the University of Illinois. It was the first von Neumann architecture computer built and owned by an American university. It was put into service on September 22, 1952.",
   "UNIVAC": "Incorrect:  The UNIVAC was the first commericial computer produced in the United States, and was designed by J. Presper Eckert and John Mauchly.  The United States Census Department received delivery of the first UNIVAC in May 1952."
 };
 
-/**
- * Detects presence of class in an element.
- * Return true if element has the class cls, false otherwise.
- *
- * @param {object} element
- * @param {string} cls
- * @return {boolean}
- */
- quiz.elementHasClass = function(element, cls) {
+
+quiz.updateScore = function(){
+    var scoreLabel = document.getElementById("score");
+    scoreLabel.innerHTML = "Score: " + score.toString();
+};
+
+quiz.elementHasClass = function(element, cls) {
   return element.classList.contains(cls);
 };
 
-quiz.checkAnswerForQ1 = function(element, key){
-    element.style.visibility='visible';
-};
-
- quiz.buildQ1 = function() {
-    var q1Form = document.getElementById('q1form');
-    for (var key in quiz.Q1){
-        var label = document.createElement("label");
-        var input = document.createElement('input');
-        input.type = 'radio';
+quiz.buildQ1 = function() {
+    var q1Form = document.getElementById("q1form");
+    for (let key in quiz.Q1){
+        let input = document.createElement("input");
+        input.type = "radio";
+        input.name = "option"
         input.value = key;
+        // input.addEventListener("click", quiz.checkAnswerForQ1(key));
+        input.onclick = function() {
+            let answer = document.getElementById(this.value);
+            if (answer != null) {
+              answer.innerHTML = quiz.Q1[this.value];
+              if (!q1Answered) {
+                  q1Answered = true;
+                  if (this.value === "FERUT"){
+                    score += 1;
+                    quiz.updateScore();
+                  };
+              }
+              for (let option in quiz.Q1){
+                if (option !== this.value) {
+                  let otherAnswer = document.getElementById(option);
+                  otherAnswer.innerHTML = "";
+                }
+              }
+            }
+        };
 
-        var linebreak = document.createElement('br');
-        label.appendChild(input);
-        label.appendChild(document.createTextNode(key));
-        label.appendChild(linebreak);
+        var linebreak = document.createElement("br");
+        q1Form.appendChild(input);
+        q1Form.appendChild(document.createTextNode(key));
+        q1Form.appendChild(linebreak);
 
-        let explanationNode = document.createElement('p');
+        let explanationNode = document.createElement("p");
         explanationNode.id = key;
-        explanationNode.textContent = quiz.Q1[key];
-        explanationNode.style.visibility='hidden';
-        label.appendChild(explanationNode);
+        q1Form.appendChild(explanationNode);
 
-        q1Form.appendChild(label);
     }
 
     var submitButton = document.createElement("input");
-    submitButton.type = 'submit';
+    submitButton.type = 'button';
     submitButton.value = 'Display All Explanations';
+    submitButton.onclick = function() {
+        q1Answered = true;
+        for (let key in quiz.Q1){
+          let a = document.getElementById(key);
+          a.innerHTML = quiz.Q1[key];
+        }
+    };
     q1Form.appendChild(submitButton);
-
 };
 
+quiz.checkAnswerForQ4 = function() {
 
+// http://stackoverflow.com/questions/21220578/display-another-div-when-submit-button-is-clicked
+
+};
 /**
  * Init function.
  */
  quiz.init = function() {
+  this.updateScore();
   this.buildQ1();
 };
 
