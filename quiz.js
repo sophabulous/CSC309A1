@@ -18,6 +18,8 @@ var quiz = quiz || {};
 var score = 0;
 var q1Answered = false;
 var q2Answered = false;
+var q3Answered = false;
+var q4Answered = false;
 /**
  * Indicates which cities have a direct flight between them.
  * A key has a direct flight to each of the cities in the array
@@ -76,12 +78,19 @@ quiz.buildQ1 = function() {
             let answer = document.getElementById(this.value);
             if (answer != null) {
               answer.innerHTML = quiz.Q1[this.value];
-              if (!q1Answered) {
+
+              if (this.value === "FERUT"){
+                score += 1;
+                if (!q1Answered) {
                   q1Answered = true;
-                  if (this.value === "FERUT"){
-                    score += 1;
-                    quiz.updateScore();
-                  };
+                  quiz.updateScore();
+                  quiz.checkCompletion();
+                }
+              }else{
+                if (!q1Answered) {
+                  q1Answered = true;
+                  quiz.checkCompletion();
+                }
               }
               for (let option in quiz.Q1){
                 if (option !== this.value) {
@@ -154,16 +163,19 @@ quiz.buildQ2 = function() {
               q2Answered = true;
               score += 2;
               quiz.updateScore();
+              quiz.checkCompletion();
             }
             response.innerHTML = "Correct: Yes!  It is hard to believe that words we take for granted in computing were once so new.";
           }else if (answers[0] !== "function" && answers[1] !== "variable") {
             if (!q2Answered) {
               q2Answered = true;
+              quiz.checkCompletion();
             }
             response.innerHTML = "Incorrect: Both words you chose are words that Professors Gotlieb and Hume were quoted for in the OED.";
           }else{
             if (!q2Answered) {
               q2Answered = true;
+              quiz.checkCompletion();
             }
             if (answers[0] !== "function" && answers[1] === "variable") {
               response.innerHTML = "Incorrect: You picked '" + answers[1] + "' correctly, but '" + answers[0] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
@@ -203,35 +215,72 @@ quiz.buildQ3 = function() {
     let keys = quiz.shuffle(Object.keys(quiz.Q3));
     // let keys = Object.keys(quiz.Q3);
     for (let i = 0; i < keys.length; i++){
+        let linebreak = document.createElement("br");
         let fame = document.createElement("p");
-        fame.innerHTML = " <span class='placeholder'> </span>" + quiz.Q3[keys[i]] + " <span class='q3answer'> </span>";
+        fame.id = keys[i];
+        fame.innerHTML = " <span class='placeholder'></span>" + quiz.Q3[keys[i]] + " <span class='q3answer'> </span>";
         fame.onclick = function() {
+            //find the placeholder of the current fame and change the text to the letter the use just clicked on
             let placeholder = this.getElementsByClassName("placeholder");
             placeholder[0].innerHTML = option;
 
             let answerCount = 0;
-            let all_fame = fameField.getElementsByClassName("placeholder");
-            for (let i = 0; i < all_fame.length; i++) {
-              if (all_fame[i].innerHTML !== "") {
+            let all_placeholders = fameField.getElementsByClassName("placeholder");
+            for (let i = 0; i < all_placeholders.length; i++) {
+              if (all_placeholders[i].innerHTML !== "") {
                 answerCount += 1;
               }
             }
             if (answerCount == keys.length) {
+
+              let all_fame = fameField.getElementsByTagName("p");
               let answerFields = fameField.getElementsByClassName("q3answer");
               for (let i = 0; i < answerFields.length; i++) {
-                answerFields[i].innerHTML = "yes";
+                let matchedAnswer = document.getElementById(all_placeholders[i].innerHTML); //the prof the user has chosen
+                if (matchedAnswer.innerHTML.indexOf(all_fame[i].id) != -1) {
+                  answerFields[i].innerHTML = "<br> Correct!";
+                  answerFields[i].style.color = "green";
+                  if (!q3Answered) {
+                    score += 0.5;
+                    quiz.updateScore();
+                  }
+                }else{
+                  answerFields[i].style.color = "red";
+                  answerFields[i].innerHTML = "<br> Incorrect! The correct answer is " + all_fame[i].id;
+                }
               }
+              if (!q3Answered) {
+                q3Answered = true;
+                quiz.checkCompletion();
+              };
             }
         };
         fameField.appendChild(fame);
-        let linebreak = document.createElement("br");
+        
         fameField.appendChild(linebreak);
     }
 
 };
-quiz.checkAnswerForQ4 = function() {
-
+quiz.buildQ4 = function() {
+  q4Answered = true;
 // http://stackoverflow.com/questions/21220578/display-another-div-when-submit-button-is-clicked
+
+};
+
+quiz.checkCompletion = function() {
+  if (q1Answered && q2Answered && q3Answered && q4Answered) {
+
+    var r = confirm("Your score is " + score + ". Restart the game?");
+    if (r == true) {
+        score = 0;
+        q1Answered = false;
+        q2Answered = false;
+        q3Answered = false;
+        q4Answered = false;
+        location.reload();
+    } else {
+    }
+  } 
 
 };
 /**
@@ -242,6 +291,7 @@ quiz.checkAnswerForQ4 = function() {
   this.buildQ1();
   this.buildQ2();
   this.buildQ3();
+  this.buildQ4();
 };
 
 // Initializing.
