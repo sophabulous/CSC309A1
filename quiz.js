@@ -204,10 +204,24 @@ quiz.buildQ3 = function() {
     // let keys = Object.keys(quiz.Q3);
     for (let i = 0; i < keys.length; i++){
         let fame = document.createElement("p");
-        fame.innerHTML = " <span class='placeholder'> </span>" + quiz.Q3[keys[i]];
+        fame.innerHTML = " <span class='placeholder'> </span>" + quiz.Q3[keys[i]] + " <span class='q3answer'> </span>";
         fame.onclick = function() {
             let placeholder = this.getElementsByClassName("placeholder");
             placeholder[0].innerHTML = option;
+
+            let answerCount = 0;
+            let all_fame = fameField.getElementsByClassName("placeholder");
+            for (let i = 0; i < all_fame.length; i++) {
+              if (all_fame[i].innerHTML !== "") {
+                answerCount += 1;
+              }
+            }
+            if (answerCount == keys.length) {
+              let answerFields = fameField.getElementsByClassName("q3answer");
+              for (let i = 0; i < answerFields.length; i++) {
+                answerFields[i].innerHTML = "yes";
+              }
+            }
         };
         fameField.appendChild(fame);
         let linebreak = document.createElement("br");
