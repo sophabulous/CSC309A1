@@ -50,6 +50,17 @@ quiz.Q3 = {
   "Mike Brudno": "Scientific Director of the Centre for Computational Medicine at Sick Kids Hospital"
 };
 
+quiz.Q4 = {
+  "1940": "The First Computer Network",
+  "1971": "First Microprocessor: Intel 4004",
+  "1957": "First Popular High-Level Language: FORTRAN",
+  "1953": "First Open Source Software: A-2 System",
+  "1951": "First Compiler for Electronic Computer: A-0 System",
+  "1841": "First Computer Program",
+  "1967": "First Object Oriented Programming Language: Simula"
+
+};
+
 quiz.updateScore = function(){
     var scoreLabel = document.getElementById("score");
     scoreLabel.innerHTML = "Score: " + score.toString();
@@ -103,7 +114,7 @@ quiz.buildQ1 = function() {
 
         q1Form.appendChild(input);
         q1Form.appendChild(document.createTextNode(key));
-        var linebreak = document.createElement("br");
+        let linebreak = document.createElement("br");
         q1Form.appendChild(linebreak);
         let explanationNode = document.createElement("p");
         explanationNode.id = key;
@@ -146,7 +157,7 @@ quiz.buildQ2 = function() {
       let count = 0; 
       let answers = [];
       for (let i = 0; i < q2Form.elements.length; i++) { 
-        var obj = q2Form.elements[i]; 
+        let obj = q2Form.elements[i]; 
         if (obj.type == "checkbox" && obj.checked) { 
           answers[count] = obj.value;
           count++; 
@@ -156,8 +167,11 @@ quiz.buildQ2 = function() {
       if (count > 2) {
           response.innerHTML = "Only two words can be selected. Please try again.";
       }else if (count < 2) {
-          response.innerHTML = "Your answer is incomplete.  Please select another word.";
+          response.innerHTML = "Your answer is incomplete.  Please select another word.";    
       }else{
+          // if only 2 options were chosen
+
+          //if both answers are correct
           if (answers[0] === "function" && answers[1] === "variable") {
             if (!q2Answered) {
               q2Answered = true;
@@ -166,23 +180,26 @@ quiz.buildQ2 = function() {
               quiz.checkCompletion();
             }
             response.innerHTML = "Correct: Yes!  It is hard to believe that words we take for granted in computing were once so new.";
-          }else if (answers[0] !== "function" && answers[1] !== "variable") {
-            if (!q2Answered) {
-              q2Answered = true;
-              quiz.checkCompletion();
-            }
-            response.innerHTML = "Incorrect: Both words you chose are words that Professors Gotlieb and Hume were quoted for in the OED.";
+          // if one of the answers is correct
+          }else if (answers[0] === "function" || answers[0] === "variable") {
+              response.innerHTML = "Incorrect: You picked '" + answers[0] + "' correctly, but '" + answers[1] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
+              if (!q2Answered) {
+                q2Answered = true;
+                quiz.checkCompletion();
+              }
+          }else if (answers[1] === "function" || answers[1] === "variable") {
+              response.innerHTML = "Incorrect: You picked '" + answers[1] + "' correctly, but '" + answers[0] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
+              if (!q2Answered) {
+                q2Answered = true;
+                quiz.checkCompletion();
+              }
+          // if neither of the answers are correct
           }else{
             if (!q2Answered) {
               q2Answered = true;
               quiz.checkCompletion();
             }
-            if (answers[0] !== "function" && answers[1] === "variable") {
-              response.innerHTML = "Incorrect: You picked '" + answers[1] + "' correctly, but '" + answers[0] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
-            }
-            if (answers[0] === "function" && answers[1] !== "variable") {
-              response.innerHTML = "Incorrect: You picked '" + answers[0] + "' correctly, but '" + answers[1] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
-            }
+            response.innerHTML = "Incorrect: Both words you chose are words that Professors Gotlieb and Hume were quoted for in the OED.";
           }
       }
     };
@@ -262,8 +279,76 @@ quiz.buildQ3 = function() {
 
 };
 quiz.buildQ4 = function() {
-  q4Answered = true;
-// http://stackoverflow.com/questions/21220578/display-another-div-when-submit-button-is-clicked
+    let q4Form = document.getElementById("q4form");
+    let keys = quiz.shuffle(Object.keys(quiz.Q4));
+    let q4dates = Object.keys(quiz.Q4);
+    q4dates.sort();
+    for (let i = 0; i < keys.length; i++){
+        let selctionDiv = document.createElement('div');
+        selctionDiv.className = "selection";
+        let selectList = document.createElement("select");
+        selectList.id = keys[i];
+        selctionDiv.appendChild(selectList);
+
+        //Create and append the options
+        for (let j = 0; j < keys.length; j++) {
+            let option = document.createElement("option");
+            option.value = (j + 1).toString();
+            option.text = (j + 1).toString();
+            selectList.appendChild(option);
+        }
+        let invention = document.createElement("span");
+        invention.innerHTML = quiz.Q4[keys[i]];
+        selctionDiv.appendChild(invention);
+
+        let q4answer = document.createElement("span");
+        q4answer.innerHTML = "";
+        q4answer.className = "q4answer";
+        selctionDiv.appendChild(q4answer);
+
+        let linebreak = document.createElement("br");
+        selctionDiv.appendChild(linebreak);
+        q4Form.appendChild(selctionDiv);
+    }
+    
+    let submitButton = document.createElement("input");
+    submitButton.type = 'button';
+    submitButton.value = 'Submit';
+
+    let allSelections = document.getElementsByTagName("select");
+    let scoreCount = 0;
+    submitButton.onclick = function() {
+      for (let z = 0; z < allSelections.length; z++){
+        let selection = allSelections[z];
+        let answerFields = q4Form.getElementsByClassName("q4answer");
+        // the index the user has chosen for the current select
+        let index = parseInt(selection.options[selection.selectedIndex].value);
+
+        //if the date associated with the chosen index matches the id of the select element, it's correct
+        if (q4dates[index - 1] === selection.id) {
+          answerFields[z].innerHTML = "    Correct! The year is " + selection.id;
+          answerFields[z].style.color = "green";
+          scoreCount += 1;
+        }else{
+          answerFields[z].innerHTML = "    Incorrect! The year is " + selection.id;
+          answerFields[z].style.color = "red";
+        }
+      }
+      if (scoreCount == allSelections.length) {
+        if (!q4Answered) {
+          q4Answered = true;
+          score += 1;
+          quiz.updateScore();
+          quiz.checkCompletion();
+        }
+      }else{
+          if (!q4Answered) {
+            q4Answered = true;
+            quiz.checkCompletion();
+          }
+      }
+    };
+    q4Form.appendChild(submitButton);
 
 };
 

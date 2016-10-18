@@ -4,8 +4,8 @@
 }
 
 body{
-	padding-left: 20%;
-	padding-right: 20%;
+	padding-left: 15%;
+	padding-right: 15%;
 	padding-top: 5%;
 	padding-bottom: 20%;
 }
@@ -51,7 +51,7 @@ h4{
 #score{
 	font-family: 'Open Sans', sans-serif;
 	text-align: right;
-	right: 10%;
+	right: 5%;
 	top: 10%;
 	position: fixed;
 }
@@ -85,7 +85,7 @@ h4{
     margin-right: 2%;
 }
 
-#selections{
+#q4Form{
 	padding-top: 2%;
 }
 
