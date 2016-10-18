@@ -11,154 +11,25 @@
         <h1 id="title">Let's Get Quizzical!</h1>
         <h1 id="score"></h1>
         <div class="questionblock" id="q1"> 
-            <!-- onclick="quiz.checkAnswerForQ1(this)" -->
             <h2>Question 1: The first electronic computer in Canada was housed in the Computer Science Department at the U of T.  What was its name?</h2>
             <form id="q1form" action="">
-<!--                 <input type="radio" name="option" value="HAL 9000">a) HAL 9000<br>
-                <p id="HAL 9000"></p>
-                <input type="radio" name="option" value="FERUT">b) FERUT<br>
-                <p id="FERUT"></p>
-                <input type="radio" name="option" value="ILLIAC">c) ILLIAC<br>
-                <p id="ILLIAC"></p>
-                <input type="radio" name="option" value="UNIVAC">d) UNIVAC<br>
-                <p id="UNIVAC"></p> -->
-<!--                 <input type="button" onclick="quiz.displayAllForQ1()"value="Display All Explanations"> -->
             </form>
         </div>
 
         <div class="questionblock" id="q2">
             <h2>Question 2: University of Toronto Professors Kelly Gotlieb and Pat Hume are credited in the Oxford English Dictionary with early published use of more than 10 words used in the vocabulary of computing from their 1958 book, "High-speed Data Processing".  Which two of the following are *not* words for which they are quoted in the OED?</h2>
             <form id="q2form" action="">
-
             </form>
         </div>
         <div class="questionblock" id="q3">
             <h2>Question 3: Match the CS Professor with his or her claim to fame:</h2>
-            <div class="professors">
-<!--                 <p id="Daniel Wigdor">a. Daniel Wigdor</p>
-                <p id="Stephen Cook">b. Stephen Cook</p>
-                <p>c. Geoff Hinton</p>
-                <p>d. Karan Singh</p>
-                <p>e. Diane Horton</p>
-                <p>f. Raquel Urtasun</p>
-                <p>g. David Levin</p>
-                <p>h. Mike Brudno</p> -->
-            </div>
-            <div class="fame">
-<!--                 <p><span class="placeholder"></span>Taught a first-year course while an undergraduate student in our department</p>
-                <p><span class="placeholder"></span>Turing Award winner for work in computational complexity</p>
-                <p><span class="placeholder"></span>Pioneer in machine learning, now Distinguished Researcher at Google</p>
-                <p><span class="placeholder"></span>Academy Award for Ryan (software research and development director)</p>
-                <p><span class="placeholder"></span>Winner of both the President's Teaching Award and OCUFA teaching award</p>
-                <p><span class="placeholder"></span>Canada Research Chair in Machine Learning and Computer Vision, researching self-driving cars</p>
-                <p><span class="placeholder"></span>Associate Research Scientist at Disney Research before joining the faculty</p>
-                <p><span class="placeholder"></span>Scientific Director of the Centre for Computational Medicine at Sick Kids Hospital</p> -->
-
-            </div>
+            <div class="professors"></div>
+            <div class="fame"></div>
         </div>
         <div class="questionblock" id="q4">
             <h2>Question 4: Arrange by year of invention from oldest to newest:</h2>
             <h4>Notes: order by choosing the numbers in the dropdown box, the older the invention the smaller the number (ie: the oldest invention will get the number 1 and the latest will get the number 7)</h4>
-            <div id="q4form">
-               <!--  <div class="selection">
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                    <span>The First Computer Network</span>
-                </div>
-                <div class="selection">
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                    <span>First Microprocessor: Intel 4004</span>
-                </div>
-                <div class="selection">
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                    <span>First Popular High-Level Language: FORTRAN</span>
-                </div>
-                <div class="selection">
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                    <span>First Open Source Software: A-2 System</span>
-                </div>
-                <div class="selection">
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                    <span>First Compiler for Electronic Computer: A-0 System – 1951 (Grace Hopper)</span>
-                </div>
-                <div class="selection">
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                    <span>The First Computer Network</span>
-                </div>
-                <div class="selection">
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                    <span>First Object Oriented Programming Language: Simula</span>
-                </div>
-                <div class="selection">
-                    <select>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                    <span>The First Computer Network</span>
-                </div> -->
-<!--                 <br><br>
-                <input type="button" value="Submit"> -->
-            </div>
+            <div id="q4form"></div>
         </div>
         <script src="quiz.js"></script>
     </body>

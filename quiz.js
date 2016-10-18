@@ -92,12 +92,14 @@ quiz.buildQ1 = function() {
 
               if (this.value === "FERUT"){
                 score += 1;
+                answer.style.color = "green";
                 if (!q1Answered) {
                   q1Answered = true;
                   quiz.updateScore();
                   quiz.checkCompletion();
                 }
               }else{
+                answer.style.color = "red";
                 if (!q1Answered) {
                   q1Answered = true;
                   quiz.checkCompletion();
@@ -165,14 +167,19 @@ quiz.buildQ2 = function() {
       }
       let response = document.getElementById("q2response");
       if (count > 2) {
+        // if more than 2 options are chosen
+          response.style.color = "orange";
           response.innerHTML = "Only two words can be selected. Please try again.";
       }else if (count < 2) {
+        // if less than 2 options are chosen
+          response.style.color = "orange";
           response.innerHTML = "Your answer is incomplete.  Please select another word.";    
       }else{
           // if only 2 options were chosen
 
           //if both answers are correct
           if (answers[0] === "function" && answers[1] === "variable") {
+            response.style.color = "green";
             if (!q2Answered) {
               q2Answered = true;
               score += 2;
@@ -181,25 +188,28 @@ quiz.buildQ2 = function() {
             }
             response.innerHTML = "Correct: Yes!  It is hard to believe that words we take for granted in computing were once so new.";
           // if one of the answers is correct
-          }else if (answers[0] === "function" || answers[0] === "variable") {
-              response.innerHTML = "Incorrect: You picked '" + answers[0] + "' correctly, but '" + answers[1] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
-              if (!q2Answered) {
-                q2Answered = true;
-                quiz.checkCompletion();
-              }
-          }else if (answers[1] === "function" || answers[1] === "variable") {
-              response.innerHTML = "Incorrect: You picked '" + answers[1] + "' correctly, but '" + answers[0] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
-              if (!q2Answered) {
-                q2Answered = true;
-                quiz.checkCompletion();
-              }
-          // if neither of the answers are correct
           }else{
-            if (!q2Answered) {
-              q2Answered = true;
-              quiz.checkCompletion();
+            response.style.color = "red";
+            if (answers[0] === "function" || answers[0] === "variable") {
+                response.innerHTML = "Incorrect: You picked '" + answers[0] + "' correctly, but '" + answers[1] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
+                if (!q2Answered) {
+                  q2Answered = true;
+                  quiz.checkCompletion();
+                }
+            }else if (answers[1] === "function" || answers[1] === "variable") {
+                response.innerHTML = "Incorrect: You picked '" + answers[1] + "' correctly, but '" + answers[0] + "' is one of the words that Professors Gotlieb and Hume got credit for.";
+                if (!q2Answered) {
+                  q2Answered = true;
+                  quiz.checkCompletion();
+                }
+            // if neither of the answers are correct
+            }else{
+              if (!q2Answered) {
+                q2Answered = true;
+                quiz.checkCompletion();
+              }
+              response.innerHTML = "Incorrect: Both words you chose are words that Professors Gotlieb and Hume were quoted for in the OED.";
             }
-            response.innerHTML = "Incorrect: Both words you chose are words that Professors Gotlieb and Hume were quoted for in the OED.";
           }
       }
     };
@@ -354,17 +364,17 @@ quiz.buildQ4 = function() {
 
 quiz.checkCompletion = function() {
   if (q1Answered && q2Answered && q3Answered && q4Answered) {
-
-    var r = confirm("Your score is " + score + ". Restart the game?");
-    if (r == true) {
-        score = 0;
-        q1Answered = false;
-        q2Answered = false;
-        q3Answered = false;
-        q4Answered = false;
-        location.reload();
-    } else {
-    }
+    setTimeout(function(){
+      var r = confirm("Your score is " + score + ". Restart the game?");
+      if (r == true) {
+          score = 0;
+          q1Answered = false;
+          q2Answered = false;
+          q3Answered = false;
+          q4Answered = false;
+          location.reload();
+      }
+    },500);   // put 0.5 sec delay so that user can see all the results and updated score
   } 
 
 };
